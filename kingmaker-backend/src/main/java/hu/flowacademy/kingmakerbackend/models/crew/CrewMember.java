@@ -7,9 +7,9 @@ public abstract class CrewMember {
     private Integer prosperityLevel;
     private Integer fameLevel;
     private Integer secretsLevel;
-    private Integer experience = 0;
+    private Integer experience;
 
-    public CrewMember(Integer price, Integer prosperityLevel, Integer fameLevel, Integer secretsLevel) {
+    CrewMember(Integer price, Integer prosperityLevel, Integer fameLevel, Integer secretsLevel) {
         this.price = price;
         this.prosperityLevel = prosperityLevel;
         this.fameLevel = fameLevel;
