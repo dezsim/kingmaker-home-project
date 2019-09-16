@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { KingmakerComponent } from './components/kingmaker/kingmaker.component';
 
 
 const routes: Routes = [
-  {path: ""}
+  {path: "kingmaker", component: KingmakerComponent}
 ];
 
 @NgModule({

@@ -1,9 +1,15 @@
-package hu.flowacademy.kingmakerbackend.models;
+package hu.flowacademy.kingmakerbackend.model;
 
 public class Player {
     private Integer gold;
     private Integer MP;
     private Integer DP;
+
+    public Player() {
+        this.gold = 100;
+        this.DP = 40;
+        this.MP = 0;
+    }
 
     public Player(Integer gold, Integer DP, Integer MP) {
         this.gold = gold;

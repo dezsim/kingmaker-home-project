@@ -1,4 +1,4 @@
-package hu.flowacademy.kingmakerbackend.models.buildings;
+package hu.flowacademy.kingmakerbackend.model.building;
 
 public class Bank extends Building {
     private final Integer bankPrice = 65;

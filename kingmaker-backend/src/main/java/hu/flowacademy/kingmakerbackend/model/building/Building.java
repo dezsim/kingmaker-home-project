@@ -1,4 +1,4 @@
-package hu.flowacademy.kingmakerbackend.models.buildings;
+package hu.flowacademy.kingmakerbackend.model.building;
 
 public abstract class Building {
     private Integer buildingPrice;

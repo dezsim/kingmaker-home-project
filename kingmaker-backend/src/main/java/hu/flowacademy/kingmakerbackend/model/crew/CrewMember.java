@@ -1,19 +1,26 @@
-package hu.flowacademy.kingmakerbackend.models.crew;
-
-import javax.persistence.criteria.CriteriaBuilder;
+package hu.flowacademy.kingmakerbackend.model.crew;
 
 public abstract class CrewMember {
-    private Integer price;
+    private Integer memberPrice;
     private Integer prosperityLevel;
     private Integer fameLevel;
     private Integer secretsLevel;
     private Integer experience;
 
-    CrewMember(Integer price, Integer prosperityLevel, Integer fameLevel, Integer secretsLevel) {
-        this.price = price;
+    CrewMember() {
+        this.memberPrice = 10;
+        this.prosperityLevel = 0;
+        this.fameLevel = 0;
+        this.secretsLevel = 0;
+        this.experience = 0;
+    }
+
+    public CrewMember(Integer memberPrice, Integer prosperityLevel, Integer fameLevel, Integer secretsLevel, Integer experience) {
+        this.memberPrice = memberPrice;
         this.prosperityLevel = prosperityLevel;
         this.fameLevel = fameLevel;
         this.secretsLevel = secretsLevel;
+        this.experience = experience;
     }
 
     public Integer getExperience() {
@@ -24,12 +31,12 @@ public abstract class CrewMember {
         this.experience = experience;
     }
 
-    public Integer getPrice() {
-        return price;
+    public Integer getMemberPrice() {
+        return memberPrice;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setMemberPrice(Integer memberPrice) {
+        this.memberPrice = memberPrice;
     }
 
     public Integer getProsperityLevel() {
