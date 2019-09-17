@@ -1,38 +1,29 @@
 package hu.flowacademy.kingmakerbackend.model.building;
 
-import hu.flowacademy.kingmakerbackend.model.Player;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table
-public abstract class Building {
+public class Building implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column
-    private Integer buildingPrice;
-
-    @Column
-    private Integer buildingInterest;
-
-    @Column
-    @NotNull
     @Enumerated(EnumType.STRING)
     private BuildingType buildingType;
 
-    @ManyToMany
-    private Player player;
+    /*@ManyToMany
+    private Player player;*/
 
     Building() {
     }
 
-    public Building(Integer buildingPrice, Integer buildingInterest) {
-        this.buildingPrice = buildingPrice;
-        this.buildingInterest = buildingInterest;
+    public Building(BuildingType buildingType) {
+        this.buildingType = buildingType;
     }
 
     public Long getId() {
@@ -43,20 +34,21 @@ public abstract class Building {
         this.id = id;
     }
 
-    public Integer getBuildingPrice() {
-        return buildingPrice;
+    public BuildingType getBuildingType() {
+        return buildingType;
     }
 
-    void setBuildingPrice(Integer buildingPrice) {
-        this.buildingPrice = buildingPrice;
+    public void setBuildingType(BuildingType buildingType) {
+        this.buildingType = buildingType;
     }
 
-    public Integer getBuildingInterest() {
-        return buildingInterest;
+
+    /*public Player getPlayer() {
+        return player;
     }
 
-    public void setBuildingInterest(Integer buildingInterest) {
-        this.buildingInterest = buildingInterest;
-    }
+    public void setPlayer(Player player) {
+        this.player = player;
+    }*/
 }
 

@@ -16,6 +16,15 @@ public enum BuildingType {
         this.buildingInterest = buildingInterest;
     }
 
+    public static BuildingType fromText(String text){
+        for(BuildingType bT : BuildingType.values()){
+            if(bT.getBuildingName().equals(text)){
+                return bT;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
     public String getBuildingName() {
         return buildingName;
     }
@@ -27,4 +36,5 @@ public enum BuildingType {
     public int getBuildingInterest() {
         return buildingInterest;
     }
+
 }
