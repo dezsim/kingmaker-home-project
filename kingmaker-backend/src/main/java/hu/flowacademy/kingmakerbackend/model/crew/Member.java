@@ -1,13 +1,13 @@
 package hu.flowacademy.kingmakerbackend.model.crew;
 
-public abstract class CrewMember {
+public class Member {
     private Integer memberPrice;
     private Integer prosperityLevel;
     private Integer fameLevel;
     private Integer secretsLevel;
     private Integer experience;
 
-    CrewMember() {
+    public Member() {
         this.memberPrice = 10;
         this.prosperityLevel = 0;
         this.fameLevel = 0;
@@ -15,19 +15,11 @@ public abstract class CrewMember {
         this.experience = 0;
     }
 
-    public CrewMember(Integer memberPrice, Integer prosperityLevel, Integer fameLevel, Integer secretsLevel, Integer experience) {
+    public Member(Integer memberPrice, Integer prosperityLevel, Integer fameLevel, Integer secretsLevel, Integer experience) {
         this.memberPrice = memberPrice;
         this.prosperityLevel = prosperityLevel;
         this.fameLevel = fameLevel;
         this.secretsLevel = secretsLevel;
-        this.experience = experience;
-    }
-
-    public Integer getExperience() {
-        return experience;
-    }
-
-    public void setExperience(Integer experience) {
         this.experience = experience;
     }
 
@@ -61,5 +53,13 @@ public abstract class CrewMember {
 
     public void setSecretsLevel(Integer secretsLevel) {
         this.secretsLevel = secretsLevel;
+    }
+
+    public Integer getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Integer experience) {
+        this.experience = experience;
     }
 }

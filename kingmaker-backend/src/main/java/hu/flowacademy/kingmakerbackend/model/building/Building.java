@@ -1,7 +1,8 @@
 package hu.flowacademy.kingmakerbackend.model.building;
 
+import hu.flowacademy.kingmakerbackend.model.Player;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -16,14 +17,15 @@ public class Building implements Serializable {
     @Enumerated(EnumType.STRING)
     private BuildingType buildingType;
 
-    /*@ManyToMany
-    private Player player;*/
+    @OneToOne
+    private Player player;
 
     Building() {
     }
 
-    public Building(BuildingType buildingType) {
+    public Building(BuildingType buildingType, Player player) {
         this.buildingType = buildingType;
+        this.player = player;
     }
 
     public Long getId() {
@@ -42,13 +44,12 @@ public class Building implements Serializable {
         this.buildingType = buildingType;
     }
 
-
-    /*public Player getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
     public void setPlayer(Player player) {
         this.player = player;
-    }*/
+    }
 }
 
