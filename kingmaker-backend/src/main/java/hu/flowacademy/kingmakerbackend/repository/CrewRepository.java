@@ -1,12 +1,15 @@
 package hu.flowacademy.kingmakerbackend.repository;
 
 import hu.flowacademy.kingmakerbackend.model.crew.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CrewRepository {
-    private Integer crewSize;
+@Repository
+public interface CrewRepository extends JpaRepository<Member, Long> {
+   /* private Integer crewSize;
     private Integer playerId;
     private List<Member> crewList;
 
@@ -41,5 +44,5 @@ public class CrewRepository {
 
     public void setCrewList(List<Member> crewList) {
         this.crewList = crewList;
-    }
+    }*/
 }

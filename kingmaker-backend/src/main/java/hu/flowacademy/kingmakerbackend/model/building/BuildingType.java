@@ -10,6 +10,7 @@ public enum BuildingType {
     public final int buildingPrice;
     public final int buildingInterest;
 
+
     BuildingType(String buildingName, int buildingPrice, int buildingInterest) {
         this.buildingName = buildingName;
         this.buildingPrice = buildingPrice;
@@ -36,5 +37,7 @@ public enum BuildingType {
     public int getBuildingInterest() {
         return buildingInterest;
     }
+
+
 
 }

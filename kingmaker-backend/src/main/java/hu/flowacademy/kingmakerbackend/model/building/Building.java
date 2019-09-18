@@ -1,8 +1,10 @@
 package hu.flowacademy.kingmakerbackend.model.building;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import hu.flowacademy.kingmakerbackend.model.Player;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -10,14 +12,16 @@ import java.io.Serializable;
 public class Building implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
     @Column
     @Enumerated(EnumType.STRING)
     private BuildingType buildingType;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "player_id")
     private Player player;
 
     Building() {
@@ -51,5 +55,6 @@ public class Building implements Serializable {
     public void setPlayer(Player player) {
         this.player = player;
     }
+
 }
 

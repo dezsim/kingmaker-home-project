@@ -1,7 +1,10 @@
 package hu.flowacademy.kingmakerbackend.resource;
 
+import hu.flowacademy.kingmakerbackend.logics.BuildingService;
+import hu.flowacademy.kingmakerbackend.logics.MemberService;
 import hu.flowacademy.kingmakerbackend.model.Player;
 import hu.flowacademy.kingmakerbackend.model.building.*;
+import hu.flowacademy.kingmakerbackend.model.crew.Member;
 import hu.flowacademy.kingmakerbackend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +15,27 @@ import java.util.List;
 @RequestMapping("/api")
 public class Rest {
 
+
+    @Autowired
+    private BuildingService buildingService;
+
+    @Autowired
+    private MemberService memberService;
+
     @Autowired
     private BuildingRepository buildingRepository;
 
     @Autowired
     private PlayerRepository playerRepository;
 
+    @Autowired
+    private CrewRepository crewRepository;
+
+
     public Rest() {
     }
 
-    @GetMapping("")
+    @GetMapping("/player/")
     public List<Player> findBy(){
         return playerRepository.findAll();
     }
@@ -31,10 +45,14 @@ public class Rest {
         return playerRepository.save(new Player(username));
     }
 
+    @PostMapping("/player/crew/")
+    public Member newMember(@RequestBody Member member){
+        return memberService.hireMember(member);
+    }
+
     @PostMapping("/building/")
     public Building addBuilding(@RequestBody Building building){
-       /* buildingRepository.save(new Building(BuildingType.BANK, newPlayer("kuka")));*/
-        return buildingRepository.save(building);
+        return buildingService.build(building);
     }
 
     @GetMapping("/building/{id}")

@@ -2,15 +2,20 @@ package hu.flowacademy.kingmakerbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import hu.flowacademy.kingmakerbackend.model.building.Building;
+import hu.flowacademy.kingmakerbackend.model.crew.Member;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
-public class Player {
+public class Player implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
     @Column
@@ -25,25 +30,40 @@ public class Player {
     @Column
     private Integer DP;
 
-    @JsonIgnore
+    @Column
+    private Integer crewSize;
+
+ /*   @JsonIgnore
     @OneToOne(mappedBy = "player")
-    private Building building;
+    private Building building;*/
+
+    @OneToMany(mappedBy="player")
+    private List<Building> building;
+
+    @OneToMany(mappedBy = "player")
+    private List<Member> member;
 
     public Player() {
     }
 
     public Player(String username) {
         this.username = username;
+        this.member = new ArrayList<>();
+        this. building = new ArrayList<>();
         this.gold = 180;
         this.DP = 40;
         this.MP = 0;
+        this.crewSize = 0;
     }
 
-    public Player(String username, Integer gold, Integer DP, Integer MP) {
+    public Player(String username, Integer gold, Integer DP, Integer MP, Integer crewSize) {
         this.username = username;
+        this.member = new ArrayList<>();
+        this. building = new ArrayList<>();
         this.gold = gold;
         this.DP = DP;
         this.MP = MP;
+        this.crewSize = crewSize;
     }
 
     public String getUsername() {
@@ -86,13 +106,27 @@ public class Player {
         this.id = id;
     }
 
-    public Building getBuilding() {
+    public Integer getCrewSize() {
+        return crewSize;
+    }
+
+    public void setCrewSize(Integer crewSize) {
+        this.crewSize = crewSize;
+    }
+
+    public List<Building> getBuilding() {
         return building;
     }
 
-    public void setBuilding(Building building) {
+    public void setBuilding(List<Building> building) {
         this.building = building;
     }
 
+    public List<Member> getMember() {
+        return member;
+    }
 
+    public void setMember(List<Member> member) {
+        this.member = member;
+    }
 }
