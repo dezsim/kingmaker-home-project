@@ -6,60 +6,49 @@ import java.util.List;
 
 public class Quest {
 
-    private String questName;
-    private int chanceToSuccess;
-    private List<MemberType> neededMember;
-    private List<MemberType> extraChanceMember;
-    private String result;
+   private Long id;
+   private String type;
+   private int successChance;
+   private int xpGain;
 
-    public Quest() {
+    public Quest(String type) {
+        getQuestData();
+        this.id = id;
     }
 
-    public Quest(String questName, int chanceToSuccess, List<MemberType> neededMember, List<MemberType> extraChanceMember, String result) {
-        this.questName = questName;
-        this.chanceToSuccess = chanceToSuccess;
-        this.neededMember = neededMember;
-        this.extraChanceMember = extraChanceMember;
-        this.result = result;
+    private void getQuestData() {
+
     }
 
-    public String getQuestName() {
-        return questName;
+    public Long getId() {
+        return id;
     }
 
-    public void setQuestName(String questName) {
-        this.questName = questName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public int getChanceToSuccess() {
-        return chanceToSuccess;
+    public String getType() {
+        return type;
     }
 
-    public void setChanceToSuccess(int chanceToSuccess) {
-        this.chanceToSuccess = chanceToSuccess;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public List<MemberType> getNeededMember() {
-        return neededMember;
+    public int getSuccessChance() {
+        return successChance;
     }
 
-    public void setNeededMember(List<MemberType> neededMember) {
-        this.neededMember = neededMember;
+    public void setSuccessChance(int successChance) {
+        this.successChance = successChance;
     }
 
-    public List<MemberType> getExtraChanceMember() {
-        return extraChanceMember;
+    public int getXpGain() {
+        return xpGain;
     }
 
-    public void setExtraChanceMember(List<MemberType> extraChanceMember) {
-        this.extraChanceMember = extraChanceMember;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
+    public void setXpGain(int xpGain) {
+        this.xpGain = xpGain;
     }
 }
