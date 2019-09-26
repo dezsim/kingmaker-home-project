@@ -35,6 +35,12 @@ public class Rest {
     public Rest() {
     }
 
+    @GetMapping("")
+    public int base(){
+        System.out.println("connected");
+        return 1;
+    }
+
     @GetMapping("/player/")
     public List<Player> findBy(){
         return playerRepository.findAll();

@@ -6,11 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { KingmakerComponent } from './components/kingmaker/kingmaker.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from './components/header/header.component';
+import { KingmakerService } from './services/kingmaker.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    KingmakerComponent
+    KingmakerComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -18,7 +21,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [KingmakerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

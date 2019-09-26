@@ -4,7 +4,8 @@ import { KingmakerComponent } from './components/kingmaker/kingmaker.component';
 
 
 const routes: Routes = [
-  {path: "kingmaker", component: KingmakerComponent}
+  {path: "kingmaker", component: KingmakerComponent},
+  {path: "", component: KingmakerComponent}
 ];
 
 @NgModule({

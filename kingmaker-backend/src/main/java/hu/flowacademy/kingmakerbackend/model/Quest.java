@@ -11,13 +11,14 @@ public class Quest {
    private int successChance;
    private int xpGain;
 
-    public Quest(String type) {
-        getQuestData();
+    public Quest(String type) {                         //Mocking quests
+        this.successChance = getQuestData().get(0);
+        this.xpGain = getQuestData().get(1);
         this.id = id;
     }
 
-    private void getQuestData() {
-
+    private List<Integer> getQuestData() {
+        return List.of(10, 5);
     }
 
     public Long getId() {
