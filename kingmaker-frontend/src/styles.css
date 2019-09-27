@@ -1,4 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+.grid-container {
+    display: grid;
+    grid-template-areas: 
+        'playerBlue crewBlue questsBlue'
+        'buildingsBlue buildingsBlue buildingsBlue'
+        'buildingsRed buildingsRed buildingsRed'
+        'questsRed crewRed playerRed ';
+    grid-template-columns: 20vw 1fr 20vw;;
+    grid-template-rows: 0.8fr 1.2fr 1.2fr 0.8fr;
+    height: 50vw;
+    grid-gap: 5px;
+    background-color: #2196F3;
+    padding: 5px;
+}
+
+.grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid black;
+    text-align: center;
+    font-size: 4vw;
+    height: auto;
+ /*    max-height: 200px; */
+}
+
+
+.playerRed { grid-area: playerRed; }
+.buildingsRed{ grid-area: buildingsRed; } 
+.crewRed{ grid-area: crewRed; }
+.questsRed{ grid-area: questsRed; }
+.playerBlue{ grid-area: playerBlue; }
+.buildingsBlue{ grid-area: buildingsBlue; }
+.crewBlue{ grid-area: crewBlue; }
+.questsBlue{ grid-area: questsBlue; }
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
 body {
     background-color: skyblue;
 }

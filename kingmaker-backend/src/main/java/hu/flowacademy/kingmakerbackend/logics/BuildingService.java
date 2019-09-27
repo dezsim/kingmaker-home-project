@@ -30,4 +30,7 @@ public class BuildingService {
     }
 
 
+    public Building findById(Long id) {
+        return buildingRepository.findById(id).orElse(null);
+    }
 }

@@ -1,1 +1,30 @@
-kingmaker works
+<br>
+<div>
+<label for="username"></label>
+<textarea name="username" id="username" [(ngModel)]="username"></textarea>
+<button type="submit" (click)='send()'>Send</button>
+<!-- <button type="submit" (click)='get()'>Get</button> -->
+</div>
+
+
+<div class="grid-container">
+    
+      <div class="playerBlue">{{playerBlue.username}}</div>
+      <div class="crewBlue">crewBlue</div>
+      <div class="questsBlue">questsBlue</div>
+    
+    <div class="buildingsBlue">buildingsBlue</div>
+      
+  
+  
+
+     <div class="buildingsRed">buildingsRed</div>
+ 
+
+
+      <div class="questsRed">questsRed</div>
+      <div class="crewRed">crewRed</div>
+      <div class="playerRed">{{playerRed.username}}</div> 
+
+  </div>
+

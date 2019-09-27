@@ -1,20 +1,15 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand">Menu</a>
-    <a class="navbar-brand" href="kingmaker">New game</a>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">New Game <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Rules</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-      </ul>
-      <span class="navbar-text">
-       Kingmaker
-      </span>
-    </div>
-  </nav>
+<ul>
+  <li>
+    <a routerLink="" [ngClass]="{ active: activeRoute === '/' }">Home</a>
+  </li>
+  <li>
+    <a routerLink="kingmaker" [ngClass]="{ active: activeRoute === '/kingmaker' }"
+      >New Game</a
+    >
+  </li>
+  <li>
+    <a routerLink="rules" [ngClass]="{ active: activeRoute === '/rules' }"
+      >Rules</a
+    >
+  </li>
+</ul>

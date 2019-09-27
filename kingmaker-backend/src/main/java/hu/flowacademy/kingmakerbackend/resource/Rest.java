@@ -5,6 +5,7 @@ import hu.flowacademy.kingmakerbackend.logics.MemberService;
 import hu.flowacademy.kingmakerbackend.model.Player;
 import hu.flowacademy.kingmakerbackend.model.building.*;
 import hu.flowacademy.kingmakerbackend.model.crew.Member;
+import hu.flowacademy.kingmakerbackend.model.game.GameModel;
 import hu.flowacademy.kingmakerbackend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +24,6 @@ public class Rest {
     private MemberService memberService;
 
     @Autowired
-    private BuildingRepository buildingRepository;
-
-    @Autowired
     private PlayerRepository playerRepository;
 
     @Autowired
@@ -35,20 +33,32 @@ public class Rest {
     public Rest() {
     }
 
-    @GetMapping("")
-    public int base(){
-        System.out.println("connected");
-        return 1;
-    }
 
+    @PostMapping("/game/")
+    public GameModel newGame(@RequestParam("playerRed") String redname, @RequestParam("playerBlue") String bluename){
+        var red = playerRepository.findByUsername(redname);
+        var blue = playerRepository.findByUsername(bluename);
+        var game = new GameModel(red, blue);
+        return game;
+    }
     @GetMapping("/player/")
     public List<Player> findBy(){
         return playerRepository.findAll();
     }
 
+    @GetMapping("/player/{username}")
+    public Player findByUsername(@PathVariable String username){
+        return playerRepository.findByUsername(username);
+    }
+
     @PostMapping("/player/")
-    public Player newPlayer(@RequestParam("username") String username){
+    public Player newPlayer(@RequestBody String username){
         return playerRepository.save(new Player(username));
+    }
+
+    @PostMapping("/player/new")
+    public Player newPlayer(){
+        return playerRepository.save(new Player("ss"));
     }
 
     @PostMapping("/player/crew/")
@@ -64,6 +74,6 @@ public class Rest {
     @GetMapping("/building/{id}")
     public Building findById(@PathVariable Long id){
        /* return buildingRepository.getOne(1L).getBuildingType().getBuildingInterest()*/;
-        return buildingRepository.findById(id).orElse(null);
+        return buildingService.findById(id);
     }
 }

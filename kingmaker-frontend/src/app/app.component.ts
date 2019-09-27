@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { KingmakerService } from './services/kingmaker.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +7,4 @@ import { KingmakerService } from './services/kingmaker.service';
 })
 export class AppComponent {
   title = 'kingmaker-frontend';
-
-  
 }

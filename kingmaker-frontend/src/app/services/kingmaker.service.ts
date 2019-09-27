@@ -13,4 +13,12 @@ export class KingmakerService {
     return this.httpClient.get("http://localhost:8080/api/");
   }
 
+  public sendUsername(username : string) {
+    return this.httpClient.post('http://localhost:8080/api/player/', username);
+  }
+
+  public getUser(username : string) : Observable<any> {
+    return this.httpClient.get("http://localhost:8080/api/player/" + username);
+  }
+
 }
