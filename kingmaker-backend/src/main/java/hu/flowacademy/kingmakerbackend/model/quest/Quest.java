@@ -1,8 +1,8 @@
 package hu.flowacademy.kingmakerbackend.model.quest;
 
 import hu.flowacademy.kingmakerbackend.model.crew.MemberType;
-
 import java.util.List;
+import java.util.Optional;
 
 public class Quest {
 
@@ -12,14 +12,14 @@ public class Quest {
    private int xpGain;
 
     public Quest(String type) {                         //Mocking quests
-        this.successChance = getQuestData().get(0);
-        this.xpGain = getQuestData().get(1);
+        this.successChance = 0;
+        this.xpGain = 0;
         this.id = id;
     }
 
-    private List<Integer> getQuestData() {
-        return List.of(10, 5);
-    }
+  /*  private Optional getQuestData(String type) {
+
+    }*/
 
     public Long getId() {
         return id;

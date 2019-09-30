@@ -53,9 +53,9 @@ public class Player implements Serializable {
     public Player() {
     }
 
-    public Player(String username, String password) {
+    public Player(String username) {
         this.username = username;
-        this.password = password;
+        this.password = "anyád";
         this.member = new ArrayList<>();
         this. building = new ArrayList<>();
         this.gold = 180;

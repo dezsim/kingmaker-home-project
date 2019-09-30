@@ -34,13 +34,14 @@ public class Rest {
     }
 
 
-    @PostMapping("/game/")
+/*    @PostMapping("/game/")
     public GameModel newGame(@RequestParam("playerRed") String redname, @RequestParam("playerBlue") String bluename){
         var red = playerRepository.findByUsername(redname);
         var blue = playerRepository.findByUsername(bluename);
         var game = new GameModel(red, blue);
         return game;
-    }
+    }*/
+
     @GetMapping("/player/")
     public List<Player> findBy(){
         return playerRepository.findAll();
@@ -52,16 +53,16 @@ public class Rest {
     }
 
     @PostMapping("/player/")
-    public Player newPlayer(@RequestBody String username, String password){
-        return playerRepository.save(new Player(username, password));
+    public Player newPlayer(@RequestBody String username){
+        return playerRepository.save(new Player(username));
     }
 
     @PostMapping("/player/new")
     public Player newPlayer(){
-        return playerRepository.save(new Player("ss", "bb"));
+        return playerRepository.save(new Player("ss"));
     }
 
-    @PostMapping("/player/crew/")
+    @PostMapping("/crew/")
     public Member newMember(@RequestBody Member member){
         return memberService.hireMember(member);
     }

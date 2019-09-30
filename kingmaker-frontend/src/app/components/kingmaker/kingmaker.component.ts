@@ -27,6 +27,10 @@ export class KingmakerComponent implements OnInit {
 
   }
 
+  login(){
+    console.log(this.kingmakerService.login("john", "123"));
+  }
+
  send(){
     this.kingmakerService.sendUsername(this.username).subscribe();
     this.kingmakerService.getUser(this.username).subscribe(player => this.playerBlue = player);
