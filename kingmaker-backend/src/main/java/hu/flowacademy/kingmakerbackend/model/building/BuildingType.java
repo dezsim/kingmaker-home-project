@@ -6,9 +6,9 @@ public enum BuildingType {
     MARKETPLACE("Marketplace", 50, 10),
     VINEYARD("Vineyard", 30, 6);
 
-    public final String buildingName;
-    public final int buildingPrice;
-    public final int buildingInterest;
+    private final String buildingName;
+    private final int buildingPrice;
+    private final int buildingInterest;
 
 
     BuildingType(String buildingName, int buildingPrice, int buildingInterest) {

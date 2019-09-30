@@ -39,6 +39,7 @@ public class Player implements Serializable {
     @Column
     private String role;
 
+
  /*   @JsonIgnore
     @OneToOne(mappedBy = "player")
     private Building building;*/

@@ -1,4 +1,4 @@
-package hu.flowacademy.kingmakerbackend.model;
+package hu.flowacademy.kingmakerbackend.model.quest;
 
 import hu.flowacademy.kingmakerbackend.model.crew.MemberType;
 

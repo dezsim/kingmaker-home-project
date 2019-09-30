@@ -5,7 +5,7 @@ public enum  MemberType {
     THIEF("Thief"),
     WARRIOR("Warrior");
 
-    public final String type;
+    private final String type;
 
     MemberType(String type) {
         this.type = type;
