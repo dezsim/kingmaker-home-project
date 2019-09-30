@@ -22,7 +22,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("john").password(passwordEncoder.encode("123")).roles("USER");
 
-        auth.userDetailsService(customUserDetailsService);
+        /*auth.userDetailsService(customUserDetailsService);*/
     }// @formatter:on
 
     @Override
