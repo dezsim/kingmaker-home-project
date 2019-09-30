@@ -25,7 +25,7 @@ export class KingmakerService {
   public login(username, password){
     
     const headers = {
-      'Authorization': 'Basic ' + btoa("fooClientIdPassword:secret"),
+      'Authorization': 'Basic ' + btoa("acme:acmesecret"),
       'Content-type': 'application/x-www-form-urlencoded'
     }
     
@@ -34,7 +34,7 @@ export class KingmakerService {
           .set('password', password)
           .set('grant_type', 'password');
 
-    this.httpClient.post('http://localhost:8080/' + 'oauth/token', body, {headers})
+    this.httpClient.post('http://localhost:8080/' + 'oauth/authorize', body, {headers})
           .subscribe(data => console.log(data),
       
           err => console.log('invalid Credentials'));
