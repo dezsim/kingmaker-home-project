@@ -18,8 +18,11 @@ public class Player implements Serializable {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false)
+    private String password;
 
     @Column
     private Integer gold;
@@ -32,6 +35,9 @@ public class Player implements Serializable {
 
     @Column
     private Integer crewSize;
+
+    @Column
+    private String role;
 
  /*   @JsonIgnore
     @OneToOne(mappedBy = "player")
@@ -46,14 +52,16 @@ public class Player implements Serializable {
     public Player() {
     }
 
-    public Player(String username) {
+    public Player(String username, String password) {
         this.username = username;
+        this.password = password;
         this.member = new ArrayList<>();
         this. building = new ArrayList<>();
         this.gold = 180;
         this.DP = 40;
         this.MP = 0;
         this.crewSize = 0;
+        this.role = "USER";
     }
 
     public Player(String username, Integer gold, Integer DP, Integer MP, Integer crewSize) {
@@ -128,5 +136,21 @@ public class Player implements Serializable {
 
     public void setMember(List<Member> member) {
         this.member = member;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

@@ -52,13 +52,13 @@ public class Rest {
     }
 
     @PostMapping("/player/")
-    public Player newPlayer(@RequestBody String username){
-        return playerRepository.save(new Player(username));
+    public Player newPlayer(@RequestBody String username, String password){
+        return playerRepository.save(new Player(username, password));
     }
 
     @PostMapping("/player/new")
     public Player newPlayer(){
-        return playerRepository.save(new Player("ss"));
+        return playerRepository.save(new Player("ss", "bb"));
     }
 
     @PostMapping("/player/crew/")
