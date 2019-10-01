@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { Player } from '../player.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,12 +33,17 @@ export class KingmakerService {
           .set('password', password)
           .set('grant_type', 'password');
 
-    this.httpClient.post('http://localhost:8080/' + 'oauth/authorize', body, {headers})
+
+    this.httpClient.post('http://localhost:8080/oauth/authorize', body, {headers})
           .subscribe(data => console.log(data),
       
           err => console.log('invalid Credentials'));
+
+        
   }
   
+
+
 
 }
 

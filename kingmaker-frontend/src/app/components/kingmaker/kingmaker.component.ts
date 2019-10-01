@@ -12,7 +12,6 @@ export class KingmakerComponent implements OnInit {
   @Input()
   private username : string;
 
-  
   private playerBlue : any = "";
 
   private playerRed : Player = new Player(10, "pista", 2, 3, 5, 7);
