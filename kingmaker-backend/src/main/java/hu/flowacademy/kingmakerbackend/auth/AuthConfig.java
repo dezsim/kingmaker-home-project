@@ -1,48 +1,89 @@
 package hu.flowacademy.kingmakerbackend.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
-public class AuthConfig extends WebSecurityConfigurerAdapter {
-
-  /*  @Autowired
-    private BCryptPasswordEncoder passwordEncoder;*/
+@EnableAuthorizationServer
+public class AuthConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
-    private CustomUserDetailsService customUserDetailsService;
-
-    @Autowired
-    public void globalUserDetails(final AuthenticationManagerBuilder auth) throws Exception {
-        // @formatter:off
-       /* auth.inMemoryAuthentication()
-                .withUser("john").password(passwordEncoder.encode("123")).roles("USER");
-*/
-        System.out.println("aaaaa");
-        auth.userDetailsService(customUserDetailsService);
-    }// @formatter:on
+    @Qualifier("authenticationManagerBean")
+    private AuthenticationManager authenticationManager;
 
     @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+    public void configure(final AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+        oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
     }
 
     @Override
-    protected void configure(final HttpSecurity http) throws Exception {
-        // @formatter:off
-        http.authorizeRequests()
-                .antMatchers("/", "/login", "/oauth/**", "/tokens/**").permitAll()
-                .anyRequest().authenticated()
-                .and().formLogin().permitAll()
-                .and().csrf().disable();
-        // @formatter:on
+    public void configure(final ClientDetailsServiceConfigurer clients)
+            throws Exception {// @formatter:off
+        clients.inMemory()
+                .withClient("fooClientIdPassword")
+                .secret(passwordEncoder().encode("secret"))
+                .authorizedGrantTypes("password", "authorization_code", "refresh_token", "client_credentials")
+                .scopes("foo", "read", "write")
+                .accessTokenValiditySeconds(3600) // 1 hour
+                .refreshTokenValiditySeconds(2592000) // 30 days
+        ;
+    } // @formatter:on
+
+    @Bean
+    @Primary
+    public DefaultTokenServices tokenServices() {
+        final DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+        defaultTokenServices.setTokenStore(tokenStore());
+        defaultTokenServices.setSupportRefreshToken(true);
+        return defaultTokenServices;
+    }
+
+    @Override
+    public void configure(final AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+//    final TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+//    tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
+        endpoints.tokenStore(tokenStore())
+                .accessTokenConverter(accessTokenConverter())
+//        .tokenEnhancer(tokenEnhancerChain)
+                .authenticationManager(authenticationManager);
+    }
+
+    @Bean
+    public TokenStore tokenStore() {
+        return new JwtTokenStore(accessTokenConverter());
+    }
+
+    @Bean
+    public JwtAccessTokenConverter accessTokenConverter() {
+        final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey("123");
+        // final KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("mytest.jks"), "mypass".toCharArray());
+        // converter.setKeyPair(keyStoreKeyFactory.getKeyPair("mytest"));
+        return converter;
+    }
+
+//  @Bean
+//  public TokenEnhancer tokenEnhancer() {
+//    return new CustomTokenEnhancer();
+//  }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }

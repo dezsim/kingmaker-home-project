@@ -3,23 +3,22 @@ package hu.flowacademy.kingmakerbackend.model.quest;
 import hu.flowacademy.kingmakerbackend.model.crew.MemberType;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 public class Quest {
 
-   private Long id;
-   private String type;
+   private Long id = 0L;
    private int successChance;
    private int xpGain;
+   private QuestType questType;
 
-    public Quest(String type) {                         //Mocking quests
-        this.successChance = 0;
-        this.xpGain = 0;
-        this.id = id;
+    public Quest(QuestType questType) {
+        this.questType = questType;
+        this.successChance = questType.getSuccessChance();
+        this.xpGain = new Random().nextInt(15) + 1;
+        this.id++;
     }
 
-  /*  private Optional getQuestData(String type) {
-
-    }*/
 
     public Long getId() {
         return id;
@@ -27,14 +26,6 @@ public class Quest {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public int getSuccessChance() {
@@ -51,5 +42,13 @@ public class Quest {
 
     public void setXpGain(int xpGain) {
         this.xpGain = xpGain;
+    }
+
+    public QuestType getQuestType() {
+        return questType;
+    }
+
+    public void setQuestType(QuestType questType) {
+        this.questType = questType;
     }
 }

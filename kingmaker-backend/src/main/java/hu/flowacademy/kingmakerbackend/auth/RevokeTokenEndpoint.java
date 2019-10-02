@@ -1,4 +1,3 @@
-/*
 package hu.flowacademy.kingmakerbackend.auth;
 
 import javax.annotation.Resource;
@@ -33,4 +32,4 @@ public class RevokeTokenEndpoint {
     }
 
 }
-*/
+
