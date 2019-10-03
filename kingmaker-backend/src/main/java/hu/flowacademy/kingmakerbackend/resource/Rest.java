@@ -1,6 +1,8 @@
 package hu.flowacademy.kingmakerbackend.resource;
 
+import hu.flowacademy.kingmakerbackend.auth.CustomUserDetailsService;
 import hu.flowacademy.kingmakerbackend.logics.BuildingService;
+import hu.flowacademy.kingmakerbackend.logics.GameService;
 import hu.flowacademy.kingmakerbackend.logics.MemberService;
 import hu.flowacademy.kingmakerbackend.model.Player;
 import hu.flowacademy.kingmakerbackend.model.building.*;
@@ -8,12 +10,19 @@ import hu.flowacademy.kingmakerbackend.model.crew.Member;
 import hu.flowacademy.kingmakerbackend.model.game.GameModel;
 import hu.flowacademy.kingmakerbackend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("")
 public class Rest {
 
 
@@ -24,23 +33,26 @@ public class Rest {
     private MemberService memberService;
 
     @Autowired
+    private GameService gameService;
+
+    @Autowired
     private PlayerRepository playerRepository;
 
     @Autowired
     private CrewRepository crewRepository;
+
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
 
     public Rest() {
     }
 
 
-/*    @PostMapping("/game/")
-    public GameModel newGame(@RequestParam("playerRed") String redname, @RequestParam("playerBlue") String bluename){
-        var red = playerRepository.findByUsername(redname);
-        var blue = playerRepository.findByUsername(bluename);
-        var game = new GameModel(red, blue);
-        return game;
-    }*/
+    @PostMapping("/game/new/{username}")
+    public GameModel newGame(@PathVariable String username){
+        return gameService.newGame(playerRepository.findByUsername(username));
+    }
 
     @GetMapping("/player/")
     public List<Player> findBy(){
@@ -76,5 +88,18 @@ public class Rest {
     public Building findById(@PathVariable Long id){
        /* return buildingRepository.getOne(1L).getBuildingType().getBuildingInterest()*/;
         return buildingService.findById(id);
+    }
+
+    @SuppressWarnings("rawtypes")
+    @PostMapping("/register")
+    public ResponseEntity register(@RequestBody Player player) {
+        Player userExists = playerRepository.findByUsername(player.getUsername());
+        if (userExists != null) {
+            throw new BadCredentialsException("User with username: " + player.getUsername() + " already exists");
+        }
+        customUserDetailsService.savePlayer(player);
+        Map<Object, Object> model = new HashMap<>();
+        model.put("message", "User registered successfully");
+        return ok(model);
     }
 }

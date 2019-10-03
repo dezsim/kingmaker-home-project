@@ -1,16 +1,16 @@
 <br>
 <div>
-<label for="username"></label>
-<textarea name="username" id="username" [(ngModel)]="username"></textarea>
-<button type="submit" (click)='send()'>Send</button>
-<button type="submit" (click)='login()'>Login</button>
-<!-- <button type="submit" (click)='get()'>Get</button> -->
+
+
+
+<button type="submit" (click)='connectServer()'>Connect</button>
+<button type="submit" (click)='joinGame()'>Join Game</button>
 </div>
 
 
 <div class="grid-container">
     
-      <div class="playerBlue">{{playerBlue.username}}</div>
+      <div class="playerBlue">{{username}}</div>
       <div class="crewBlue">crewBlue</div>
       <div class="questsBlue">questsBlue</div>
     
@@ -25,7 +25,7 @@
 
       <div class="questsRed">questsRed</div>
       <div class="crewRed">crewRed</div>
-      <div class="playerRed">{{playerRed.username}} péz: {{playerRed.gold}}</div> 
+      <div class="playerRed">red</div> 
 
   </div>
 

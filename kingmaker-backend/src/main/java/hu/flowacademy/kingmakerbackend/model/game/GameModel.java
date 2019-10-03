@@ -2,8 +2,12 @@ package hu.flowacademy.kingmakerbackend.model.game;
 
 import hu.flowacademy.kingmakerbackend.model.Player;
 
+import javax.persistence.*;
+
 public class GameModel {
 
+
+    private Long id;
     private boolean hasWinner;
     private Player playerRed;
     private Player playerBlue;
@@ -12,10 +16,17 @@ public class GameModel {
     GameModel(){
     }
 
+    public GameModel(Long id){
+        this.id = id;
+        this.currentTurn = 0;
+        hasWinner = false;
+    }
+
     public GameModel(Player playerRed, Player playerBlue) {
         this.playerRed = playerRed;
         this.playerBlue = playerBlue;
         this.currentTurn = 0;
+        hasWinner = false;
     }
 
     public boolean isHasWinner() {
@@ -48,5 +59,13 @@ public class GameModel {
 
     public void setCurrentTurn(int currentTurn) {
         this.currentTurn = currentTurn;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

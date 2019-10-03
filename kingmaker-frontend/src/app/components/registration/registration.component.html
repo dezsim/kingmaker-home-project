@@ -1,0 +1,73 @@
+<div class="example-container mat-elevation-z8">
+
+    <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit(registerForm.value)">
+        <div>
+          <label>Username</label>
+          <input type="text" name="username" formControlName="username" placeholder="Username"/>
+          <span *ngIf="!registerForm.get('username').valid && registerForm.get('username').touched">Please enter your Full Name</span>
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="text" name="password" formControlName="password" placeholder="Password"/>
+        </div>
+      
+        <button type="submit">Register</button>
+      </form>
+
+</div>
+
+<!-- <div class="container">
+    
+    <hr>
+
+    <div class="card bg-light">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+        <h4 class="card-title mt-3 text-center">Create Account</h4>
+    
+        <p>
+            <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
+            <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
+        </p>
+        <p class="divider-text">
+            <span class="bg-light">OR</span>
+        </p>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit(registerForm.value)">
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+             </div>
+            <input class="form-control" name="username" formControlName="username" placeholder="Full name" type="text">
+            <span ng-show="registerForm.username.$touched && registerForm.username.$invalid"></span>
+        </div>
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+             </div>
+            <input name="" class="form-control" placeholder="Email address" type="email">
+        </div>
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <input class="form-control" name="password" formControlName="password" placeholder="Create password" type="password">
+        </div> 
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <input class="form-control" placeholder="Repeat password" type="password">
+            
+        </div>                               
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
+        </div>   
+        <p class="text-center">Have an account? <a href="">Log In</a> </p>                                                                 
+    </form>
+    </article>
+    </div> 
+    
+    </div> 
+   
+    
+    <br><br> -->

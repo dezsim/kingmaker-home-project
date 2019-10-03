@@ -1,17 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Injectable } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule, HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
+
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './token.interceptor';
+
+
+import { KingmakerService } from './services/kingmaker.service';
+import { AuthService } from './services/auth.service';
+
+
 import { AppComponent } from './app.component';
 import { KingmakerComponent } from './components/kingmaker/kingmaker.component';
-import { HttpClientModule, HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
-import { KingmakerService } from './services/kingmaker.service';
-import { RulesComponent } from './rules/rules.component';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { AuthenticateService } from './authenticate.service';
+import { RulesComponent } from './components/rules/rules.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+
+
 
 @NgModule({
   declarations: [
@@ -20,15 +31,21 @@ import { AuthenticateService } from './authenticate.service';
     HeaderComponent,
     RulesComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [KingmakerService, AuthenticateService],
+  providers: [KingmakerService, AuthService ,  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

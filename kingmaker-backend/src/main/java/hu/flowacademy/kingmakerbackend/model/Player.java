@@ -3,6 +3,7 @@ package hu.flowacademy.kingmakerbackend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import hu.flowacademy.kingmakerbackend.model.building.Building;
 import hu.flowacademy.kingmakerbackend.model.crew.Member;
+import hu.flowacademy.kingmakerbackend.model.game.GameModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -39,7 +40,11 @@ public class Player implements Serializable {
     @Column
     private String role;
 
+ /*   @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gamemodel_id")
+    private GameModel gameModel;
 
+*/
  /*   @JsonIgnore
     @OneToOne(mappedBy = "player")
     private Building building;*/
