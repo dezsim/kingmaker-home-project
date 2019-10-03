@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import hu.flowacademy.kingmakerbackend.model.Player;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -20,7 +19,7 @@ public class Building implements Serializable {
     @Enumerated(EnumType.STRING)
     private BuildingType buildingType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "player_id")
     private Player player;
 
@@ -56,5 +55,12 @@ public class Building implements Serializable {
         this.player = player;
     }
 
+    @Override
+    public String toString() {
+        return "Building{" +
+                "id=" + id +
+                ", buildingType=" + buildingType +
+                '}';
+    }
 }
 

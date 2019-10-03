@@ -5,6 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { Player } from '../player.model';
 
 const apiUrl = 'http://localhost:8080/';
+
 const httpOptions = {
   headers: new HttpHeaders({
     'Authorization': 'Basic ' + btoa("fooClientIdPassword:secret"),
@@ -33,16 +34,15 @@ export class AuthService {
       .set('password', password)
       .set('grant_type', 'password');
 
-
     this.http.post('http://localhost:8080/oauth/token', this.body, httpOptions)
           .subscribe((data : any) => {
             localStorage.setItem('token', data.access_token)
-            this.user = new Player(null, username);
+            this.user = new Player(data.id, username);
             localStorage.setItem('username', username)
             err => console.log('invalid Credentials')
             });
-          
-            console.log(localStorage.getItem('token'));
+            
+            console.log("token:" + localStorage.getItem('token'));
   }
 
   public getToken(): string {
@@ -53,6 +53,9 @@ export class AuthService {
     return localStorage.getItem('username');
   }
 
+  public setLoginStatus(){
+    return this.isLoggedIn = false;
+  }
   public isAuthenticated(): boolean {
     const token = this.getToken();
     if(token != null){

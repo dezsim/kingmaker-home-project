@@ -129,4 +129,17 @@ public class Member implements Serializable {
         this.player = player;
     }
 
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", memberPrice=" + memberPrice +
+                ", prosperityLevel=" + prosperityLevel +
+                ", fameLevel=" + fameLevel +
+                ", secretsLevel=" + secretsLevel +
+                ", experience=" + experience +
+                ", memberType=" + memberType +
+                ", player=" + player +
+                '}';
+    }
 }

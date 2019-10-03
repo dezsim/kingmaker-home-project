@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -16,7 +16,6 @@ export class LoginComponent {
   }
 
   login() {
-    
     this.auth.login(this.username, this.password);
   }
 

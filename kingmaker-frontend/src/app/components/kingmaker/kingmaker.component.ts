@@ -1,16 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { KingmakerService } from 'src/app/services/kingmaker.service';
-import { Player } from 'src/app/player.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 
-const httpOptions = {
-  headers : new HttpHeaders({
-  'Content-Type' : 'application/json',
-  'Authorization' : 'Bearer ' + localStorage.getItem('token')
-})
-};
 
 @Component({
   selector: 'app-kingmaker',
@@ -21,26 +14,55 @@ const httpOptions = {
 
 export class KingmakerComponent implements OnInit {
 
+  public onChangeSelectOption : EventEmitter<number> = new EventEmitter<number>();
+  model : any = "";
+  public quests = [
+    {id: 1, name: "CON"},
+    {id: 2, name: "AMBUSH"},
+    {id: 3, name: "ASSASINATE"},
+    {id: 4, name: "ROB"},
+    {id: 5, name: "SUE"},
+    {id: 6, name: "DEFEND"},
+    {id: 7, name: "BRIBE"},
+    {id: 8, name: "SPREAD RUMORS"},
+    {id: 9, name: "HOST PARTY"},
+    {id: 10, name: "PRAISE"},
+    {id: 11, name: "HEAL"},
+    {id: 12, name: "MAKE MONEY"},
+    {id: 13, name: "SPY"}
+  ];
 
-  constructor(private kingmakerService : KingmakerService, private auth : AuthService, private http : HttpClient) { }
+  public selectedValue = null;
+
+  constructor(private kingmakerService : KingmakerService, private auth : AuthService) { }
 
   ngOnInit() {
+    this.kingmakerService.getPlayerData().subscribe(m => this.model = m);
+
   }
 
   public connectServer() {
-    this.http.get('http://localhost:8080/player/' + this.auth.user.username, httpOptions)
-      .subscribe(
-        data => console.log(data),
-        err => console.log(err)
-      );
+    this.kingmakerService.connectServer();
   }
 
   public joinGame(){
+    this.kingmakerService.joinGame();
+  }
 
-    this.http.post('http://localhost:8080/game/new/' + this.auth.user.username, httpOptions)
-      .subscribe(
-      data => console.log(data),
-      err => console.log(err)
-    );
+  public build(){
+    this.kingmakerService.build("GOLDMINE");
+  }
+
+  public hire(){
+    this.kingmakerService.hire("DIPLOMAT");
+  }
+
+  public startQuest(){
+    console.log(this.selectedValue);
+  }
+
+  public onChange(){
+    this.onChangeSelectOption.emit(this.selectedValue);
+    console.log(this.selectedValue);
   }
 }

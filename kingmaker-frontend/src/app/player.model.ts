@@ -1,4 +1,11 @@
 export class Player{
-    constructor(public id?: any, public username?: string, private password?: string, private gold?: any, private mp?: any, private dp?: any, private crewsize?: any){
+    constructor(
+        public id?: number, 
+        public username?: string, 
+        public password?: string, 
+        public gold?: number, 
+        public mp?: number, 
+        public dp?: number, 
+        public crewsize?: number){
     }
 }

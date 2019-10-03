@@ -81,14 +81,9 @@ public class Rest {
 
     @PostMapping("/building/")
     public Building addBuilding(@RequestBody Building building){
-        return buildingService.build(building);
+      return buildingService.build(building);
     }
 
-    @GetMapping("/building/{id}")
-    public Building findById(@PathVariable Long id){
-       /* return buildingRepository.getOne(1L).getBuildingType().getBuildingInterest()*/;
-        return buildingService.findById(id);
-    }
 
     @SuppressWarnings("rawtypes")
     @PostMapping("/register")

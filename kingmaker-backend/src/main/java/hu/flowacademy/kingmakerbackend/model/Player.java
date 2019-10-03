@@ -22,7 +22,7 @@ public class Player implements Serializable {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
+    @Column
     private String password;
 
     @Column
@@ -49,20 +49,28 @@ public class Player implements Serializable {
     @OneToOne(mappedBy = "player")
     private Building building;*/
 
+    @JsonIgnore
     @OneToMany(mappedBy="player")
     private List<Building> building;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "player")
     private List<Member> member;
 
     public Player() {
+        this.member = new ArrayList<>();
+        this.building = new ArrayList<>();
+        this.gold = 180;
+        this.DP = 40;
+        this.MP = 0;
+        this.crewSize = 0;
+        this.role = "USER";
     }
 
     public Player(String username) {
         this.username = username;
-        this.password = "anyád";
         this.member = new ArrayList<>();
-        this. building = new ArrayList<>();
+        this.building = new ArrayList<>();
         this.gold = 180;
         this.DP = 40;
         this.MP = 0;
@@ -73,7 +81,7 @@ public class Player implements Serializable {
     public Player(String username, Integer gold, Integer DP, Integer MP, Integer crewSize) {
         this.username = username;
         this.member = new ArrayList<>();
-        this. building = new ArrayList<>();
+        this.building = new ArrayList<>();
         this.gold = gold;
         this.DP = DP;
         this.MP = MP;
@@ -136,6 +144,10 @@ public class Player implements Serializable {
         this.building = building;
     }
 
+    public void addBuilding(Building building) {
+        this.building.add(building);
+    }
+
     public List<Member> getMember() {
         return member;
     }
@@ -158,5 +170,21 @@ public class Player implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", gold=" + gold +
+                ", MP=" + MP +
+                ", DP=" + DP +
+                ", crewSize=" + crewSize +
+                ", role='" + role + '\'' +
+                ", building=" + building +
+                ", member=" + member +
+                '}';
     }
 }

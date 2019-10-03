@@ -3,18 +3,16 @@
     <a routerLink="" [ngClass]="{ active: activeRoute === '/' }">Home</a>
   </li>
   <li>
-    <a routerLink="kingmaker" [ngClass]="{ active: activeRoute === '/kingmaker' }"
-      >New Game</a
+    <a routerLink="kingmaker" *ngIf="isAuthenticated()" [ngClass]="{ active: activeRoute === '/kingmaker' }">New Game</a>
+  </li>
+  <li>
+    <a routerLink="rules" [ngClass]="{ active: activeRoute === '/rules' }">Rules</a
     >
   </li>
   <li>
-    <a routerLink="rules" [ngClass]="{ active: activeRoute === '/rules' }"
-      >Rules</a
-    >
+    <a  routerLink="login" [ngClass]="{ active: activeRoute === '/login' }" *ngIf="!isAuthenticated()">Login</a>
   </li>
-  <li>
-    <a  routerLink="login" routerLink="/login">Login</a>
-  </li>
+  <li><a (click)="logout()" *ngIf="isAuthenticated()">Logout</a></li>
 
 </ul>
 

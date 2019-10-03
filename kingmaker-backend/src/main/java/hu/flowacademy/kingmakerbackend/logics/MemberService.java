@@ -6,7 +6,9 @@ import hu.flowacademy.kingmakerbackend.model.crew.MemberType;
 import hu.flowacademy.kingmakerbackend.repository.CrewRepository;
 import hu.flowacademy.kingmakerbackend.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 
@@ -20,14 +22,17 @@ public class MemberService {
     @Autowired
     private CrewRepository crewRepository;
 
+    private ResponseStatusException CREW_EXC = new ResponseStatusException(HttpStatus.NOT_FOUND, "Crew size or gold ");
+
     public Member hireMember(Member member){
-        Player player = playerRepository.findById(member.getPlayer().getId()).get();
+        Player player = playerRepository.findByUsername(member.getPlayer().getUsername());
         if( player.getGold() >= member.getMemberPrice() && player.getCrewSize() < 7 && canHireThisType(member, player)) {
             player.setGold(player.getGold() - member.getMemberPrice());
             player.setCrewSize(player.getCrewSize() + 1);
-            return crewRepository.save(member);
+            System.out.println(player);
+            return crewRepository.save(new Member(member.getMemberType(),player));
         } else {
-            throw new IllegalArgumentException("A crew mérete nem lehet nagyobb, mint 7 és nem lehet ugyanazon típusú csapattagból több, mint 3");
+            throw CREW_EXC;
         }
     }
 

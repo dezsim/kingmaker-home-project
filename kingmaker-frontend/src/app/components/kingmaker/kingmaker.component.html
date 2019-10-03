@@ -5,14 +5,25 @@
 
 <button type="submit" (click)='connectServer()'>Connect</button>
 <button type="submit" (click)='joinGame()'>Join Game</button>
+<button type="submit" (click)='build()'>Build</button>
+<button type="submit" (click)='hire()'>Hire Crew</button>
+
+
+    
+      <label for="quests">Quests</label>
+       
+<select type="number" [(ngModel)]="selectedValue" (change)="onChange($event)">
+<option *ngFor="let q of quests" [ngValue]="q">{{q.name}}</option>
+</select>
 </div>
 
 
 <div class="grid-container">
     
-      <div class="playerBlue">{{username}}</div>
+      <div class="playerBlue">{{model.username}} {{model.gold}}</div>
       <div class="crewBlue">crewBlue</div>
-      <div class="questsBlue">questsBlue</div>
+      <div class="questsBlue">
+        </div>
     
     <div class="buildingsBlue">buildingsBlue</div>
       
