@@ -3,8 +3,6 @@ import { KingmakerService } from 'src/app/services/kingmaker.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
-
-
 @Component({
   selector: 'app-kingmaker',
   templateUrl: './kingmaker.component.html',
@@ -14,8 +12,6 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 
 export class KingmakerComponent implements OnInit {
 
-  public onChangeSelectOption : EventEmitter<number> = new EventEmitter<number>();
-  model : any = "";
   public quests = [
     {id: 1, name: "CON"},
     {id: 2, name: "AMBUSH"},
@@ -32,13 +28,45 @@ export class KingmakerComponent implements OnInit {
     {id: 13, name: "SPY"}
   ];
 
+  public onChangeSelectOption : EventEmitter<number> = new EventEmitter<number>();
+  playerModel : any = "";
+  buildingModel : any = "";
+  crewModel : any = "";
+  opponent : string = "";
+  oppBuilding : any = "";
+  interval : any;
+  
   public selectedValue = null;
 
   constructor(private kingmakerService : KingmakerService, private auth : AuthService) { }
 
   ngOnInit() {
-    this.kingmakerService.getPlayerData().subscribe(m => this.model = m);
+    this.kingmakerService.getPlayerData().subscribe(m => {
+       this.playerModel = m;
+    });
+    this.kingmakerService.getBuildings().subscribe(b => {
+      this.buildingModel = b;
+      console.log(b);
+    })
 
+    
+
+    this.interval = setInterval(() => {
+      if(localStorage.getItem('enemy') != null){
+        clearInterval(this.interval);
+        this.opponent = localStorage.getItem('enemy');
+        this.kingmakerService.getOppBuildings().subscribe(ob => {
+          this.oppBuilding = ob;
+          console.log(ob);
+        });
+      }
+      this.getGameData();
+    }, 1000);
+   
+  }
+
+  public getGameData(){
+    this.kingmakerService.getGame();
   }
 
   public connectServer() {

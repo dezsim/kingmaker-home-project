@@ -139,7 +139,6 @@ public class Member implements Serializable {
                 ", secretsLevel=" + secretsLevel +
                 ", experience=" + experience +
                 ", memberType=" + memberType +
-                ", player=" + player +
                 '}';
     }
 }

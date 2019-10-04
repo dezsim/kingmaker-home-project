@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -36,5 +38,10 @@ public class BuildingService {
 
     public Building findById(Long id) {
         return buildingRepository.findById(id).orElse(null);
+    }
+
+    public List<Building> findByUsername(String username){
+        Player player = playerRepository.findByUsername(username);
+        return buildingRepository.findAll().stream().filter(building -> building.getPlayer().getUsername().equals(username)).collect(Collectors.toList());
     }
 }

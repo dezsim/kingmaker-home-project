@@ -9,7 +9,7 @@
     grid-template-rows: 0.8fr 1.2fr 1.2fr 0.8fr;
     height: 50vw;
     grid-gap: 5px;
-    background-color: #2196F3;
+    background-color: skyblue;
     padding: 5px;
 }
 
@@ -17,7 +17,7 @@
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid black;
     text-align: center;
-    font-size: 4vw;
+    font-size: 2vw;
     height: auto;
  /*    max-height: 200px; */
 }
@@ -59,4 +59,28 @@ body {
     display: table;
     clear: both;
 }
-  
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+  .opboardcontainer {
+    display: grid;
+    grid-template-areas: 'fifth fourth third second first';
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+    background-color:skyblue;
+    padding: 5px;
+    height: 14vw;
+  }
+
+    
+  .opboardcontainer > div {
+    background-color: skyblue;
+    text-align: center;
+    font-size: 1vw;
+ /*    max-height: 200px; */
+  }

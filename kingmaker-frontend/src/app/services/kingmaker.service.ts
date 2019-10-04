@@ -22,9 +22,28 @@ export class KingmakerService {
   public joinGame(){
     this.http.post(URL + '/game/new/' + this.auth.user.username, httpOptions)
       .subscribe(
-        data => console.log(data),
+        (data : any) => { 
+          if(data.playerBlue.username == localStorage.getItem("username")){
+            localStorage.setItem('enemy', data.playerRed.username);
+         } else {
+          localStorage.setItem('enemy', data.playerBlue.username);
+         }
+        },
         err => console.log(err)
     );
+  }
+
+
+  public getGame(){
+   this.http.get(URL + '/game/get/' + this.auth.user.username, httpOptions).subscribe(
+     (data : any) =>  { 
+       console.log(data);
+       if(data.playerBlue.username == localStorage.getItem("username")){
+        localStorage.setItem('enemy', data.playerRed.username);
+     } else {
+      localStorage.setItem('enemy', data.playerBlue.username);
+     }
+     });
   }
   
   public connectServer(){
@@ -68,19 +87,18 @@ export class KingmakerService {
   
   
   
-  
-  
+   
   
   public getPlayerData() : Observable<any> {
     return this.http.get(URL + "/player/" + this.auth.user.username);
   }
 
-  public sendUsername(username : string) {
-    return this.http.post('http://localhost:8080/api/player/', username);
+  public getBuildings() : Observable<any> {
+    return this.http.get(URL + "/building/" + this.auth.user.username);
   }
 
-  public getUser(username : string) : Observable<any> {
-    return this.http.get("http://localhost:8080/api/player/" + username);
+  public getOppBuildings() : Observable<any> {
+    return this.http.get(URL + "/building/" + localStorage.getItem("enemy"));
   }
 }
 

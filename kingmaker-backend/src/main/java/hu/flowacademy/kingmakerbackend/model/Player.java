@@ -183,8 +183,8 @@ public class Player implements Serializable {
                 ", DP=" + DP +
                 ", crewSize=" + crewSize +
                 ", role='" + role + '\'' +
-                ", building=" + building +
-                ", member=" + member +
+                ", building=" + building.toString() +
+                ", member=" + member.toString() +
                 '}';
     }
 }

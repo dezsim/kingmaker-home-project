@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: "kingmaker", component: KingmakerComponent},
   {path: "rules", component: RulesComponent},
   {path: "login", component: LoginComponent},
-  {path: "registration", component: RegistrationComponent}
+  {path: "register", component: RegistrationComponent}
 
 ];
 

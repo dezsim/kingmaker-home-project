@@ -3,7 +3,6 @@
 
 
 
-<button type="submit" (click)='connectServer()'>Connect</button>
 <button type="submit" (click)='joinGame()'>Join Game</button>
 <button type="submit" (click)='build()'>Build</button>
 <button type="submit" (click)='hire()'>Hire Crew</button>
@@ -20,23 +19,40 @@
 
 <div class="grid-container">
     
-      <div class="playerBlue">{{model.username}} {{model.gold}}</div>
+      <div class="playerBlue">{{playerModel.username}} <br> Gold : {{playerModel.gold}}</div>
       <div class="crewBlue">crewBlue</div>
       <div class="questsBlue">
         </div>
     
-    <div class="buildingsBlue">buildingsBlue</div>
+    <div class="buildingsBlue">
+          <div class="opboardcontainer">
+                <div *ngFor="let b of buildingModel">
+                      <div *ngIf="b.buildingType == 'GOLDMINE'"><img width="60" height="40" src="./assets/images/gm.png"></div>
+                      <div *ngIf="b.buildingType == 'MARKETPLACE'"><img width="60" height="40" src="./assets/images/marketplace.jpg"></div>
+                      <div *ngIf="b.buildingType == 'BANK'"><img width="60" height="40" src="./assets/images/bank.png"></div>
+                      <div *ngIf="b.buildingType == 'VINEYARD'"><img width="60" height="40" src="./assets/images/vineyard.jpg"></div>
+                  </div>
+      </div>
+</div>
       
   
   
 
-     <div class="buildingsRed">buildingsRed</div>
- 
+     <div class="buildingsRed">
+            <div class="opboardcontainer">
+                        <div *ngFor="let b of oppBuilding">
+                              <div *ngIf="b.buildingType == 'GOLDMINE'"><img width="60" height="40" src="./assets/images/gm.png"></div>
+                              <div *ngIf="b.buildingType == 'MARKETPLACE'"><img width="60" height="40" src="./assets/images/marketplace.jpg"></div>
+                              <div *ngIf="b.buildingType == 'BANK'"><img width="60" height="40" src="./assets/images/bank.png"></div>
+                              <div *ngIf="b.buildingType == 'VINEYARD'"><img width="60" height="40" src="./assets/images/vineyard.jpg"></div>
+                          </div>
+              </div>
+     </div>
 
 
       <div class="questsRed">questsRed</div>
       <div class="crewRed">crewRed</div>
-      <div class="playerRed">red</div> 
+      <div class="playerRed" *ngIf="opponent != null"> {{opponent}}</div> 
 
   </div>
 

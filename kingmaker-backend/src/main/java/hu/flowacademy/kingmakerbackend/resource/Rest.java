@@ -54,6 +54,12 @@ public class Rest {
         return gameService.newGame(playerRepository.findByUsername(username));
     }
 
+    @GetMapping("/game/get/{username}")
+    public GameModel getGame(@PathVariable String username){
+        System.out.println("meg");
+        return gameService.findGameByUsername(username);
+    }
+
     @GetMapping("/player/")
     public List<Player> findBy(){
         return playerRepository.findAll();
@@ -69,10 +75,7 @@ public class Rest {
         return playerRepository.save(new Player(username));
     }
 
-    @PostMapping("/player/new")
-    public Player newPlayer(){
-        return playerRepository.save(new Player("ss"));
-    }
+
 
     @PostMapping("/crew/")
     public Member newMember(@RequestBody Member member){
@@ -84,6 +87,8 @@ public class Rest {
       return buildingService.build(building);
     }
 
+    @GetMapping("/building/{username}")
+    public List<Building> getBuildings(@PathVariable String username) { return buildingService.findByUsername(username); }
 
     @SuppressWarnings("rawtypes")
     @PostMapping("/register")

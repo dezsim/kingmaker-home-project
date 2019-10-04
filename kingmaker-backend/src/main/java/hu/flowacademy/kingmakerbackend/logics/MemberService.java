@@ -29,7 +29,6 @@ public class MemberService {
         if( player.getGold() >= member.getMemberPrice() && player.getCrewSize() < 7 && canHireThisType(member, player)) {
             player.setGold(player.getGold() - member.getMemberPrice());
             player.setCrewSize(player.getCrewSize() + 1);
-            System.out.println(player);
             return crewRepository.save(new Member(member.getMemberType(),player));
         } else {
             throw CREW_EXC;
