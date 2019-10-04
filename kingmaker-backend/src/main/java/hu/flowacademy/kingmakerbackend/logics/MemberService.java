@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -37,5 +39,10 @@ public class MemberService {
 
     private boolean canHireThisType(Member member, Player player){
         return (player.getMember().stream().filter(m -> m.getMemberType().equals(member.getMemberType())).count() < 3);
+    }
+
+    public List<Member> findByUsername(String username) {
+        Player player = playerRepository.findByUsername(username);
+        return crewRepository.findAll().stream().filter(crew -> crew.getPlayer().getUsername().equals(username)).collect(Collectors.toList());
     }
 }

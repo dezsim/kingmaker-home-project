@@ -28,13 +28,34 @@ export class KingmakerComponent implements OnInit {
     {id: 13, name: "SPY"}
   ];
 
+  public buildings =[
+    {id: 1, name: "GOLDMINE"},
+    {id: 2, name: "BANK"},
+    {id: 3, name: "VINEYARD"},
+    {id: 4, name: "MARKETPLACE"}
+  
+  ]
+
+  public crew =[
+    {id: 1, name: "DIPLOMAT"},
+    {id: 2, name: "THIEF"},
+    {id: 3, name: "WARRIOR"}
+  ]
+
   public onChangeSelectOption : EventEmitter<number> = new EventEmitter<number>();
   playerModel : any = "";
   buildingModel : any = "";
   crewModel : any = "";
   opponent : string = "";
   oppBuilding : any = "";
+  oppCrew : any = "";
+  enemyPlayer : any = "";
+  myTurn : boolean;
+  gameOver : boolean;
+
+
   interval : any;
+  mainRefresh : any;
   
   public selectedValue = null;
 
@@ -44,21 +65,36 @@ export class KingmakerComponent implements OnInit {
     this.kingmakerService.getPlayerData().subscribe(m => {
        this.playerModel = m;
     });
-    this.kingmakerService.getBuildings().subscribe(b => {
-      this.buildingModel = b;
-      console.log(b);
-    })
+    
 
+    this.mainRefresh = setInterval(() => {
+      this.kingmakerService.getOppBuildings().subscribe(ob => {
+        this.oppBuilding = ob;
+      });
+      this.kingmakerService.getBuildings().subscribe(b => {
+        this.buildingModel = b;
+      });
+      this.kingmakerService.getCrew().subscribe(c => {
+        this.crewModel = c;
+      });
+      this.kingmakerService.getOppCrew().subscribe(c => {
+        this.oppCrew = c;
+      });
+      this.kingmakerService.getPlayerData().subscribe(p => {
+        this.playerModel = p;
+      })
+      this.kingmakerService.getOppData().subscribe(p => {
+        this.enemyPlayer = p;
+      })
+      this.myTurn = this.kingmakerService.myTurn;
+      console.log(this.myTurn);
+    }, 2000)
     
 
     this.interval = setInterval(() => {
       if(localStorage.getItem('enemy') != null){
         clearInterval(this.interval);
         this.opponent = localStorage.getItem('enemy');
-        this.kingmakerService.getOppBuildings().subscribe(ob => {
-          this.oppBuilding = ob;
-          console.log(ob);
-        });
       }
       this.getGameData();
     }, 1000);
@@ -78,11 +114,11 @@ export class KingmakerComponent implements OnInit {
   }
 
   public build(){
-    this.kingmakerService.build("GOLDMINE");
+    this.kingmakerService.build(this.selectedValue.name);
   }
 
   public hire(){
-    this.kingmakerService.hire("DIPLOMAT");
+    this.kingmakerService.hire(this.selectedValue.name);
   }
 
   public startQuest(){
@@ -90,7 +126,11 @@ export class KingmakerComponent implements OnInit {
   }
 
   public onChange(){
-    this.onChangeSelectOption.emit(this.selectedValue);
+    this.onChangeSelectOption.emit(this.selectedValue.name);
     console.log(this.selectedValue);
+  }
+
+  public endTurn(){
+    this.kingmakerService.endTurn();
   }
 }

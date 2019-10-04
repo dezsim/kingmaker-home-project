@@ -1,12 +1,19 @@
 <br>
 <div>
 
-
-
 <button type="submit" (click)='joinGame()'>Join Game</button>
-<button type="submit" (click)='build()'>Build</button>
-<button type="submit" (click)='hire()'>Hire Crew</button>
 
+<button type="submit" (click)='build()' [disabled]='!myTurn'>Build</button>
+<select type="number" [(ngModel)]="selectedValue" (change)="onChange($event)">
+            <option *ngFor="let b of buildings" [ngValue]="b">{{b.name}}</option>
+            </select>
+
+<button type="submit" (click)='hire()' [disabled]='!myTurn'>Hire Crew</button>
+<select type="number" [(ngModel)]="selectedValue" (change)="onChange($event)">
+            <option *ngFor="let c of crew" [ngValue]="c">{{c.name}}</option>
+            </select>
+
+            <button type="submit" (click)='endTurn()' [disabled]='!myTurn'>End Turn</button>
 
     
       <label for="quests">Quests</label>
@@ -20,8 +27,20 @@
 <div class="grid-container">
     
       <div class="playerBlue">{{playerModel.username}} <br> Gold : {{playerModel.gold}}</div>
-      <div class="crewBlue">crewBlue</div>
+
+      <div class="crewBlue">
+                  <div class="crewcontainer">
+                  <div *ngFor="let c of crewModel">
+                        <div *ngIf="c.memberType == 'DIPLOMAT'"><img width="40" height="60" src="./assets/images/diplomat.jpg"></div>
+                        <div *ngIf="c.memberType == 'THIEF'"><img width="40" height="60" src="./assets/images/thief.jpeg"></div>
+                        <div *ngIf="c.memberType == 'WARRIOR'"><img width="40" height="60" src="./assets/images/warrior.jpg"></div>
+                        
+                    </div>
+        </div>      
+      
+      </div>
       <div class="questsBlue">
+                  Completed Blue Quests
         </div>
     
     <div class="buildingsBlue">
@@ -50,9 +69,19 @@
      </div>
 
 
-      <div class="questsRed">questsRed</div>
-      <div class="crewRed">crewRed</div>
-      <div class="playerRed" *ngIf="opponent != null"> {{opponent}}</div> 
+      <div class="questsRed">Completed Red Quests</div>
+
+      <div class="crewRed">
+                  <div class="crewcontainer">
+                              <div *ngFor="let c of oppCrew">
+                                    <div *ngIf="c.memberType == 'DIPLOMAT'"><img width="40" height="60" src="./assets/images/diplomat.jpg"></div>
+                                    <div *ngIf="c.memberType == 'THIEF'"><img width="40" height="60" src="./assets/images/thief.jpeg"></div>
+                                    <div *ngIf="c.memberType == 'WARRIOR'"><img width="40" height="60" src="./assets/images/warrior.jpg"></div>
+                                    
+                                </div>
+                    </div>      
+      </div>
+      <div class="playerRed" *ngIf="enemyPlayer != null && enemyPlayer.username != null"> {{enemyPlayer.username}} <br> Gold : {{enemyPlayer.gold}}</div> 
 
   </div>
 

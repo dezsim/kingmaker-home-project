@@ -56,7 +56,6 @@ public class Rest {
 
     @GetMapping("/game/get/{username}")
     public GameModel getGame(@PathVariable String username){
-        System.out.println("meg");
         return gameService.findGameByUsername(username);
     }
 
@@ -80,6 +79,13 @@ public class Rest {
     @PostMapping("/crew/")
     public Member newMember(@RequestBody Member member){
         return memberService.hireMember(member);
+    }
+
+    @GetMapping("/crew/{username}")
+    public List<Member> getMembers(@PathVariable String username){
+        System.out.println("crew");
+        return memberService.findByUsername(username);
+
     }
 
     @PostMapping("/building/")

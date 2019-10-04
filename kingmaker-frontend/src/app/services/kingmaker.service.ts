@@ -17,16 +17,20 @@ const httpOptions = {
 })
 export class KingmakerService {
   
+  myTurn : boolean;
   constructor(private http : HttpClient, private auth : AuthService) { }
 
   public joinGame(){
     this.http.post(URL + '/game/new/' + this.auth.user.username, httpOptions)
       .subscribe(
         (data : any) => { 
+          this.myTurn = true;
           if(data.playerBlue.username == localStorage.getItem("username")){
             localStorage.setItem('enemy', data.playerRed.username);
+            
          } else {
           localStorage.setItem('enemy', data.playerBlue.username);
+          this.myTurn = false;
          }
         },
         err => console.log(err)
@@ -84,6 +88,10 @@ export class KingmakerService {
         err => console.log(err)
       );
   }
+
+  public endTurn(){
+    this.myTurn = !this.myTurn;
+  }
   
   
   
@@ -93,6 +101,10 @@ export class KingmakerService {
     return this.http.get(URL + "/player/" + this.auth.user.username);
   }
 
+  public getOppData() : Observable<any> {
+    return this.http.get(URL + "/player/" + localStorage.getItem("enemy"));
+  }
+
   public getBuildings() : Observable<any> {
     return this.http.get(URL + "/building/" + this.auth.user.username);
   }
@@ -100,5 +112,14 @@ export class KingmakerService {
   public getOppBuildings() : Observable<any> {
     return this.http.get(URL + "/building/" + localStorage.getItem("enemy"));
   }
+
+  public getCrew() : Observable<any> {
+    return this.http.get(URL + "/crew/" + this.auth.user.username);
+  }
+
+  public getOppCrew() : Observable<any> {
+    return this.http.get(URL + "/crew/" + localStorage.getItem("enemy"));
+  }
+
 }
 
